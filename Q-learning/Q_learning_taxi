@@ -1,0 +1,47 @@
+import gym
+import numpy
+import numpy as np
+import random
+
+# from Demos.SystemParametersInfo import new_value
+
+env=gym.make("Taxi-v3")
+env.reset()
+env.render()
+Q = np.zeros([env.observation_space.n, env.action_space.n])
+gamma = 0.9
+alpha = 0.1
+epsilon = 0.1
+
+reward_list = []
+best_avg_reward = -float('inf')
+# If using 0, and early average rewards are negative (which is common in RL problems like Taxi-v3),
+# then none of them would beat 0, and the "best" reward would never update.
+for episode in range(20000):
+    done = False
+    total_reward = 0
+    state = env.reset()
+    while not done:
+        if random.uniform(0, 1) < epsilon:
+            action = env.action_space.sample()
+        else:
+            action = np.argmax(Q[state])
+        next_state, reward, done, _ = env.step(action)
+        next_max =np.max(Q[next_state])
+        old_value =Q[state, action]
+        new_value = old_value+ alpha*(reward + (gamma * next_max)-old_value)
+        Q[state, action] = new_value
+        total_reward += reward
+        state = next_state
+    reward_list.append(total_reward)
+
+    if episode >= 99:
+        avg_reward = np.mean(reward_list[-100:])
+        if avg_reward > best_avg_reward:
+            best_avg_reward = avg_reward
+
+    if episode % 100 == 0:
+        print("Episode:",episode,"Total reward:",total_reward, "Avg reward:",best_avg_reward)
+
+
+
