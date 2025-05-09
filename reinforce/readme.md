@@ -3,6 +3,25 @@ in the direction of the better action (multiplied proportionally by the size of 
 estimated action value) to know which action is best.
 
 
+In the Reinforce algorithm, we use a model based system (without learning the exact env physics).
+
+Key elements of the Reinforce algo:
+
+1. Policy
+  Fundamentally a simply neural network that takes in the input state values and outputs the actions in      the form of logits
+  This NN is trained with a loss function that improves the prediction of the Policy over time.
+ 
+2. Action selection
+   Actions are selected as output from the Policy network--> converted to Categorical form--> sampled-->      converted into a log form. This log is appended to the policy.history to be later used for loss            function optimisation.
+   
+3. Batch update
+   For a batch of episodes (run within the function), rewards are accumulated/collected for future       
+   rewards. 
+   
+4. Policy update
+   Loss and therefore the policy update happens when a batch_update function is called to collect all the     batch_rewards. The derivatation is for discounted rewards i.e. immediate rewards are given more            weightage
+   
+
 ![Training_Screenshot](Reinforce_training.png)
 
 
