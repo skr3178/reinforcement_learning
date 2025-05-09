@@ -1,3 +1,7 @@
+REINFORCE formula pushes the parameters of the policy
+in the direction of the better action (multiplied proportionally by the size of the
+estimated action value) to know which action is best.
+
 
 ![Training_Screenshot](Reinforce_training.png)
 
