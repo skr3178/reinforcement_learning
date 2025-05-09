@@ -21,6 +21,7 @@ Key elements of the Reinforce algo:
 4. Policy update
    Loss and therefore the policy update happens when a batch_update function is called to collect all the     batch_rewards. The derivatation is for discounted rewards i.e. immediate rewards are given more            weightage
    
+![Reward_update](https://miro.medium.com/v2/resize:fit:638/format:webp/1*VFRng5GHkOzNrx8wG2BlqA.png)
 
 ![Training_Screenshot](Reinforce_training.png)
 
