@@ -30,6 +30,13 @@ Key elements of the Reinforce algo:
 
 ![Training_Screenshot](Reinforce_training.png)
 
+Also in code 
+
+loss = (-policy_history * discounted_rewards).sum()
+policy_history: all the state-action probabilities paired up.
+Discounted sum: gamma*rewards
+
+
 Notes:
 Empirically it was noted that with Normalization of rewards yield better/faster and more stable training than without.
 
