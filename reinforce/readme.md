@@ -8,7 +8,7 @@ In the Reinforce algorithm, we use a model based system (without learning the ex
 Key elements of the Reinforce algo:
 
 1. Policy
-  Fundamentally a simply neural network that takes in the input state values and outputs the actions in      the form of logits
+  Fundamentally a simply neural network that takes in the input state values and outputs the actions in      the form of logits.
   This NN is trained with a loss function that improves the prediction of the Policy over time.
  
 2. Action selection
@@ -16,13 +16,15 @@ Key elements of the Reinforce algo:
    
 3. Batch update
    For a batch of episodes (run within the function), rewards are accumulated/collected for future       
-   rewards. 
+   rewards. For each state in the episode sequence, that is, for t = 1, 2, …, T-1, calculate the return   
+   Gt, which is the discounted future reward.
+   ![Discounted_reward](https://miro.medium.com/v2/resize:fit:366/format:webp/1*P2W3I2gwbFphCvBAqqkLLg.png)
    
-4. Policy update
-   Loss and therefore the policy update happens when a batch_update function is called to collect all the     batch_rewards. The derivatation is for discounted rewards i.e. immediate rewards are given more            weightage
+5. Policy update
+   Loss and therefore the policy update happens when a batch_update function is called to collect all the     batch_rewards. The derivatation is for discounted rewards i.e. immediate rewards are given more weightage. Updates are done with a fixed learning rate alpha.
 
    
-![Discounted_reward](https://miro.medium.com/v2/resize:fit:366/format:webp/1*P2W3I2gwbFphCvBAqqkLLg.png)
+
    
 ![Reward_update](https://miro.medium.com/v2/resize:fit:638/format:webp/1*VFRng5GHkOzNrx8wG2BlqA.png)
 
