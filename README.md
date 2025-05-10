@@ -1,1 +1,2 @@
-Here I add my notes, resources and questions for the TDMPC reinforcement learning algorithm
+Here I added my notes, learning and code for RL algorithms.
+
