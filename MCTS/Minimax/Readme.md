@@ -6,6 +6,9 @@ Example is shown for Tic Tac Toe.
 
 In the case of alpha-beta prunning, the steps to be explored are reduced to save time and resources. It is determined when there is a redundancy (the additional information from exploring a side branch is inconsequential for that particular row-either maximixe or minimize).
 Overall, this function is good for basic and simpler versions of games. The complexity increases exponentially as it is deterministic in nature.
+
+Code and images are from sources on the internet. 
+Code can be run with command "python3 Tictactoe.py"
 ![Reward_update](img_1.png)
 
 ![Reward_update](img_2.png)
