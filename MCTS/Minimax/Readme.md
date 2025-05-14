@@ -8,7 +8,8 @@ In the case of alpha-beta prunning, the steps to be explored are reduced to save
 Overall, this function is good for basic and simpler versions of games. The complexity increases exponentially as it is deterministic in nature.
 
 Code and images are from sources on the internet. 
-Code can be run with command "python3 Tictactoe.py"
+Code can be run with command 
+'''python3 Tictactoe.py'''
 ![Reward_update](img_1.png)
 
 ![Reward_update](img_2.png)
