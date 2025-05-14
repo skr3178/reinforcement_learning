@@ -8,6 +8,8 @@ In the case of alpha-beta prunning, the steps to be explored are reduced to save
 Overall, this function is good for basic and simpler versions of games. The complexity increases exponentially as it is deterministic in nature.
 
 Code and images are from sources on the internet. 
+
+
 https://papers-100-lines.medium.com/the-minimax-algorithm-and-alpha-beta-pruning-tutorial-in-30-lines-of-python-code-e4a3d97fa144
 https://medium.com/@aidenrtracy/the-minimax-algorithm-f6e8e0a1eadb
 
