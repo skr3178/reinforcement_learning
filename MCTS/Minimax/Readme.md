@@ -15,7 +15,10 @@ https://medium.com/@aidenrtracy/the-minimax-algorithm-f6e8e0a1eadb
 
 
 Code can be run with command 
+
 '''python3 Tictactoe.py'''
+
+
 ![Reward_update](img_1.png)
 
 ![Reward_update](img_2.png)
