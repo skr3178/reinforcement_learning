@@ -1,7 +1,7 @@
 REINFORCE formula pushes the parameters of the policy
 in the direction of the better action (multiplied proportionally by the size of the
 estimated action value) to know which action is best.
-
+   ![Pseudocode](img_8.png)
 
 In the Reinforce algorithm, we use a model based system (without learning the exact env physics).
 
