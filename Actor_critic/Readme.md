@@ -2,7 +2,7 @@
 
 The variance of policy methods can originate from two sources: (1) high variance
 in the cumulative reward estimate, and (2) high variance in the gradient estimate.
-![a2c](a2c_learning_curve.png)
+
 
 ![img_9.png](img_9.png)
 
@@ -48,3 +48,4 @@ def A2C():
     optimizer
     convert states, actions, rewards, next_states, dones --> Tensors 
 ````
+![a2c](a2c_learning_curve.png)
