@@ -76,7 +76,7 @@ Makes learning harder but sometimes more natural.
 2-level
 ![2-level](/ant_reacher_2_level.gif)
 
-![2-level](/ant_reacher_2_level.gif)
+![2-level](https://github.com/skr3178/reinforcement_learning/raw/main/HAC/Hierarchical-Actor-Critc-HAC-/ant_reacher_2_level.gif)
 
 3 -level
 
