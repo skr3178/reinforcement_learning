@@ -74,13 +74,13 @@ Makes learning harder but sometimes more natural.
 # Results of ant reacher?
 
 2-level
-![2-level](/ant_reacher_2_level.gif)
+
 
 ![2-level](https://github.com/skr3178/reinforcement_learning/raw/main/HAC/Hierarchical-Actor-Critc-HAC-/ant_reacher_2_level.gif)
 
 3 -level
+![-level](https://github.com/skr3178/reinforcement_learning/raw/main/HAC/Hierarchical-Actor-Critc-HAC-/Ant_reacher_3_stage.gif)
 
-![3-level](/Ant_reacher_3_stage.gif)
 
 To-do:
 Current running is limited to single cpu- takes couple of days on Ryzen 7 CPU. No GPU used. 
