@@ -74,6 +74,7 @@ Makes learning harder but sometimes more natural.
 # Results of ant reacher?
 
 2-level
+![2-level](/ant_reacher_2_level.gif)
 
 ![2-level](/ant_reacher_2_level.gif)
 
