@@ -1,0 +1,2 @@
+model_checkpoint_path: "/home/skr3178/HAC/Hierarchical-Actor-Critc-HAC-/ant_environments/ant_reacher_2_levels/models/HAC.ckpt-99"
+all_model_checkpoint_paths: "/home/skr3178/HAC/Hierarchical-Actor-Critc-HAC-/ant_environments/ant_reacher_2_levels/models/HAC.ckpt-99"
