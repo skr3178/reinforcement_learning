@@ -1,6 +1,5 @@
-# Hierarchical-Actor-Critic-HAC-PyTorch
-
-This is an implementation of the Hierarchical Actor Critic (HAC) algorithm described in the paper, [Learning Multi-Level Hierarchies with Hindsight](https://arxiv.org/abs/1712.00948) (ICLR 2019), in PyTorch for OpenAI gym environments. The algorithm learns to reach a goal state by dividing the task into short horizon intermediate goals (subgoals). 
+# Hierarchical Actor-Critc (HAC)
+This repository contains the code to implement the *Hierarchical Actor-Critic (HAC)* algorithm- forked from https://github.com/andrew-j-levy/Hierarchical-Actor-Critc-HAC- 
 
 Here is the algorithm:
 ![img_10.png](img_10.png)
@@ -16,53 +15,80 @@ Implements
 1. Universal Value Function Approximator (UVFA)
 2. Hindsight Experience Replay
 
-## Usage
-- All the hyperparameters are contained in the `train.py` file.
-- To train a new network run `train.py`
-- To test a preTrained network run `test.py`
-- For a detailed explanation of offsets and bounds, refer to [issue #2](https://github.com/nikhilbarhate99/Hierarchical-Actor-Critic-HAC-PyTorch/issues/2)
-- For hyperparameters used for preTraining the pendulum policy refer to [issue #3](https://github.com/nikhilbarhate99/Hierarchical-Actor-Critic-HAC-PyTorch/issues/3)
+To run HAC,
 
-## Implementation Details
+*"python3 initialize_HAC.py --retrain"*.  
 
-- The code is implemented as described in the appendix section of the paper and the Official repository, i.e. without target networks and with bounded Q-values.
-- The Actor and Critic networks have 2 hidded layers of size 64.
+Typically run within the env folder. For example the ant_envs 
+have repos containing the mujoco xml files.
 
-## Citing 
+If training on cluster modify the checkpoint txt file under the models folder for that environment to visualize the results. 
+To view
 
-Please use this bibtex if you want to cite this repository in your publications :
+*"python3 initialize_HAC.py --test --show"*.  
 
-    @misc{pytorch_hac,
-        author = {Barhate, Nikhil},
-        title = {PyTorch Implementation of Hierarchical Actor-Critic},
-        year = {2021},
-        publisher = {GitHub},
-        journal = {GitHub repository},
-        howpublished = {\url{https://github.com/nikhilbarhate99/Hierarchical-Actor-Critic-HAC-PyTorch}},
-    }
+There are sample *"design_agent_and_env.py"* for each environment which contains initial state and other parameters. This needs to be created for each one seperately. 
 
-## Requirements
+The number of agents/steps that are to be trained can be modified by changing the FLAGS.layers = 3 , within design_agent_and_env.py file. 
 
-- Python 3.6
-- [PyTorch](https://pytorch.org/)
-- [OpenAI gym](https://gym.openai.com/)
+Conda env used containing the dependencies are listed in *"environment.yml"*
+
+The ant environment details for older versions can be found in here: 
+https://gymnasium.farama.org/environments/mujoco/ant/
 
 
+To show results of ant use code
 
-## Results
+''python3 initialize_HAC.py --test --show''
 
-### MountainCarContinuous-v0
- (2 levels, H = 20, 200 episodes)  |  (3 levels, H = 5, 200 episodes)  |
-:-----------------------------------:|:-----------------------------------:|
-![](https://github.com/nikhilbarhate99/Hierarchical-Actor-Critic-HAC-PyTorch/blob/master/gif/MountainCarContinuous-v0.gif)  | ![](https://github.com/nikhilbarhate99/Hierarchical-Actor-Critic-HAC-PyTorch/blob/master/gif/MountainCarContinuous-v0-3level.gif)  |
+### 19/07/2025 - Ant reacher
 
- (2 levels, H = 20, 200 episodes)  |
-:---------------------------------:|
-![](https://github.com/nikhilbarhate99/Hierarchical-Actor-Critic-HAC-PyTorch/blob/master/gif/Pendulum-v0-2level.gif) |
+The goal is defined with the and torso and velocity within certain coordinates and limits.
+
+The action space of the ant env is given by:
+![img.png](img.png)
+
+Action Space: Box(-1.0, 1.0, (8,), float32)# torque values applied to the 4 joints
+Observation Space: Box(-inf, inf, (105,), float64) #
+
+Forces: 4 contact points with the floor and therefore the friction value
+
+# Reward structure:
+
+reward = healthy_reward + forward_reward - control_cost -contact_cost
+
+# Why use sparse rewards based technique?
+Realistic scenarios:
+Sometimes you only know if the task succeeded or failed, not the "how well" at intermediate steps.
+
+Simplifies reward design:
+No need to handcraft detailed feedback functions.
+
+Challenge for learning:
+Since the agent rarely gets feedback, it encourages exploration and can lead to better generalization — but also makes training harder and slower.
+
+Sparse rewards = reward only on success (or goal achievement), no intermediate signals.
+
+Makes learning harder but sometimes more natural.
+
+# Results of ant reacher?
+
+2-level
 
 
-## References
+![2-level](https://github.com/skr3178/reinforcement_learning/raw/main/HAC/Hierarchical-Actor-Critc-HAC-/ant_reacher_2_level.gif)
 
-- Official [Paper](https://arxiv.org/abs/1712.00948) and [Code (TensorFlow)](https://github.com/andrew-j-levy/Hierarchical-Actor-Critc-HAC-)
-![Actor_critic_Pseudo.png](Actor_critic_Pseudo.png)
-- ![DDPG_Pseudocode.png](DDPG_Pseudocode.png)
+3 -level
+
+
+![-level](https://github.com/skr3178/reinforcement_learning/raw/main/HAC/Hierarchical-Actor-Critc-HAC-/Ant_reacher_3_stage.gif)
+
+
+To-do:
+Current running is limited to single cpu- takes couple of days on Ryzen 7 CPU. No GPU used. 
+
+Reduce time used for running the code. 
+Optimize for single core-CPU
+Or use optimize for multiple-CPU running
+
+Can it me made to use GPU?
