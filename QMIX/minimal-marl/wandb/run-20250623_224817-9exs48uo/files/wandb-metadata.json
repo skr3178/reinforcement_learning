@@ -1,0 +1,43 @@
+{
+  "os": "Linux-6.8.0-60-generic-x86_64-with-debian-bookworm-sid",
+  "python": "3.7.11",
+  "startedAt": "2025-06-23T20:48:17.655013Z",
+  "program": "idqn.py",
+  "codePath": "idqn.py",
+  "git": {
+    "remote": "https://github.com/koulanurag/minimal-marl.git",
+    "commit": "bd4ac9360aa686f105d1c3a0f39192ecd824e69d"
+  },
+  "email": "sangram.ashwa@gmail.com",
+  "root": "/home/skr3178/Downloads/qmix-example/minimal-marl",
+  "host": "skr3178-HP-ZBook-Studio-x360-G5",
+  "username": "skr3178",
+  "executable": "/home/skr3178/miniconda3/envs/mdpg/bin/python",
+  "codePathLocal": "idqn.py",
+  "cpu_count": 6,
+  "cpu_count_logical": 12,
+  "gpu": "Quadro P1000",
+  "gpu_count": 1,
+  "disk": {
+    "/": {
+      "total": "235103662080",
+      "used": "86979145728"
+    }
+  },
+  "memory": {
+    "total": "33493053440"
+  },
+  "cpu": {
+    "count": 6,
+    "countLogical": 12
+  },
+  "gpu_nvidia": [
+    {
+      "name": "Quadro P1000",
+      "memoryTotal": "4294967296",
+      "cudaCores": 512,
+      "architecture": "Pascal"
+    }
+  ],
+  "cudaVersion": "12.8"
+}
