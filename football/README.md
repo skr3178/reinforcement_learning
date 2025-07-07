@@ -1,29 +1,48 @@
+The current folder of Gfootball research only compiles with python3.10 or else the the docker container (More on that later).
+Compiling on the python 3.10 allows one to start the ganme, however, it does not possible to run it with checkpoints. Attempts to compile with py 3.6 failed due to some missing libraries and possible C++ based dependencies. The original game has an engine designed specifically for it. 
+
+PPO or other models were attempted to be updated with stable_baselines3 which is more recent and uses pytorch. 
+
+It uses the default AI based model as adversary for playing (C++ scripted).
+
+
+
+
+Below is the script for testing the human/player only mode. 
+There is however, some challenges in running the ppo model for training and further usage as adversary or further training. 
+
+The trained model originally uses baselines which is pretty outdated and relies on tensorflow 1.15. 
+
+
+
 To install create python env 3.10 on conda running
 
-````conda create -y -n gfootball310 python=3.10
-conda create -y -n gfootball310 python=3.10````
+``conda create -y -n gfootball310 python=3.10
+conda create -y -n gfootball310 python=3.10``
 
 Then run the following commands:
 
-````sudo apt-get install git cmake build-essential libgl1-mesa-dev libsdl2-dev libsdl2-image-dev libsdl2-ttf-dev libsdl2-gfx-dev libboost-all-dev libdirectfb-dev libst-dev mesa-utils xvfb x11vnc python3-pip````
+``sudo apt-get install git cmake build-essential libgl1-mesa-dev libsdl2-dev libsdl2-image-dev libsdl2-ttf-dev libsdl2-gfx-dev libboost-all-dev libdirectfb-dev libst-dev mesa-utils xvfb x11vnc python3-pip``
 
 downgrade setuptools to install gym
 
-```pip3 install setuptools==65.5.0
-pip install -r requirements.txt ```
+``pip3 install setuptools==65.5.0
+pip install -r requirements.txt ``
 
 Then upgrade again to install gfootball
-```python3 -m pip install --upgrade pip setuptools psutil wheel
-python3 -m pip install .```
+``python3 -m pip install --upgrade pip setuptools psutil wheel
+python3 -m pip install .``
 
 Update the GCC 
-```conda install -c conda-forge libstdcxx-ng```
+``conda install -c conda-forge libstdcxx-ng``
 
-```python3 -m gfootball.play_game --action_set=full```
+``python3 -m gfootball.play_game --action_set=full``
 
-```sudo apt-get install -y gcc-10 g++-10
+``sudo apt-get install -y gcc-10 g++-10
 sudo apt-get install -y libstdc++6
-strings /usr/lib/x86_64-linux-gnu/libstdc++.so.6 | grep GLIBCXX```
+strings /usr/lib/x86_64-linux-gnu/libstdc++.so.6 | grep GLIBCXX``
+
+
 
 ```python3 -m gfootball.play_game --action_set=full```
 
