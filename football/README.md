@@ -114,3 +114,6 @@ To run or play against and AI model run the commands
 
 ```python3 -m gfootball.play_game --players "keyboard:left_players=1;ppo_sb3:right_players=1,checkpoint=/home/skr3178/Downloads/football/gfootball/examples/ppo_sb3_gfootball_impala_params.zip" --level=11_vs_11_easy_stochastic```
 
+## Docker
+
+Docker files are updated 
