@@ -1,32 +1,31 @@
 To install create python env 3.10 on conda running
-conda create -y -n gfootball310 python=3.10
-conda create -y -n gfootball310 python=3.10
+
+````conda create -y -n gfootball310 python=3.10
+conda create -y -n gfootball310 python=3.10````
 
 Then run the following commands:
 
-sudo apt-get install git cmake build-essential libgl1-mesa-dev libsdl2-dev libsdl2-image-dev libsdl2-ttf-dev libsdl2-gfx-dev libboost-all-dev libdirectfb-dev libst-dev mesa-utils xvfb x11vnc python3-pip
+````sudo apt-get install git cmake build-essential libgl1-mesa-dev libsdl2-dev libsdl2-image-dev libsdl2-ttf-dev libsdl2-gfx-dev libboost-all-dev libdirectfb-dev libst-dev mesa-utils xvfb x11vnc python3-pip````
 
 downgrade setuptools to install gym
 
-pip3 install setuptools==65.5.0
-pip install -r requirements.txt 
+```pip3 install setuptools==65.5.0
+pip install -r requirements.txt ```
 
 Then upgrade again to install gfootball
-python3 -m pip install --upgrade pip setuptools psutil wheel
-python3 -m pip install .
+```python3 -m pip install --upgrade pip setuptools psutil wheel
+python3 -m pip install .```
 
 Update the GCC 
-conda install -c conda-forge libstdcxx-ng
+```conda install -c conda-forge libstdcxx-ng```
 
-python3 -m gfootball.play_game --action_set=full
+```python3 -m gfootball.play_game --action_set=full```
 
-sudo apt-get install -y gcc-10 g++-10
+```sudo apt-get install -y gcc-10 g++-10
 sudo apt-get install -y libstdc++6
-strings /usr/lib/x86_64-linux-gnu/libstdc++.so.6 | grep GLIBCXX
+strings /usr/lib/x86_64-linux-gnu/libstdc++.so.6 | grep GLIBCXX```
 
-python3 -m gfootball.play_game --action_set=full
-
-How is reward function designed?
+```python3 -m gfootball.play_game --action_set=full```
 
 pip3 install setuptools==65.5.0
 pip install stable-baselines3==1.8.0
