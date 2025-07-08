@@ -140,7 +140,7 @@ Error when running the command inside the container:
 ``root@a27d4be42fd3:/gfootball# python3 -m gfootball.play_game --action_set=full``
 
 
-/usr/local/lib/python3.6/dist-packages/pygame/pkgdata.py:25: UserWarning: Module gfootball_engine was already imported from /usr/local/lib/python3.6/dist-packages/gfootball_engine/__init__.py, but /gfootball is being added to sys.path
+``/usr/local/lib/python3.6/dist-packages/pygame/pkgdata.py:25: UserWarning: Module gfootball_engine was already imported from /usr/local/lib/python3.6/dist-packages/gfootball_engine/__init__.py, but /gfootball is being added to sys.path
   from pkg_resources import resource_stream, resource_exists
 pygame 2.6.1 (SDL 2.28.4, Python 3.6.9)
 Hello from the pygame community. https://www.pygame.org/contribute.html
@@ -161,4 +161,4 @@ X Error of failed request:  GLXBadContext
   Major opcode of failed request:  152 (GLX)
   Minor opcode of failed request:  6 (X_GLXIsDirect)
   Serial number of failed request:  114
-  Current serial number in output stream:  113
+  Current serial number in output stream:  113``
