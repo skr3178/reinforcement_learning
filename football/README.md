@@ -59,6 +59,7 @@ To save some images while training use:
 
 1. Test Model Performance (No rendering, fast)
 ``python3 play_vs_sb3_model.py ./ppo_sb3_gfootball.zip test``
+![Gfootball_research.gif](Gfootball_research.gif)
 
 
 2. Watch AI vs AI (Both teams controlled by your model)
@@ -75,6 +76,7 @@ To save some images while training use:
 
 5. To simply test the model with rendering
 ``python3 load_sb3_model.py``
+![Training_SB3_PPO.gif](Training_SB3_PPO.gif)
 
 
 Some explanation about the extracted vs extracted stacked frameworks: 
