@@ -118,10 +118,9 @@ To run or play against and AI model run the commands
 
 ## Docker
 
-Docker files are updated as:
-## Docker
+Docker files are updated as.
 
-Docker files are updated.
+
 To start the container use the command ``run_docker_test.sh``
 The command ``docker run -v /tmp/.X11-unix:/tmp/.X11-unix:rw  --entrypoint python3 -it gfootball_docker_test gfootball/examples/run_ppo2.py --level=academy_empty_goal_close --num_timesteps=10000``
 will start running the gfootball, however it does not render
