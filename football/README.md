@@ -134,11 +134,9 @@ Inside the docker container:
 apt install -y x11-apps
 xeyes``
 
-
 Error when running the command inside the container:
 
 ``root@a27d4be42fd3:/gfootball# python3 -m gfootball.play_game --action_set=full``
-
 
 ``
 libGL error: MESA-LOADER: failed to retrieve device information
@@ -153,6 +151,8 @@ X Error of failed request:  GLXBadContext
 
 Rewards Model
 ![Rewards_football.jpg](Rewards_football.jpg)
+
+Reference: class CheckpointRewardWrapper(gym.RewardWrapper)/ [gfootball/env/wrappers.py]
 
 ##Update: 
 Running the original code as is with python 3.6 and compilation.
@@ -177,9 +177,9 @@ as "pixel": obs shape changes to [72, 96, 3]
 as "extracted": obs shape changes to [72, 96, 4]
 Table 
 
-|Representation	    | What is it?	            | SMM?  | Full Rendered Game?
+|Representation	    | What is it?	              | SMM?| Full Rendered Game?
 |pixels	Rendered    | RGB image	                | No	| Yes
-|pixels_gray	    | Rendered grayscale image	| No	| Yes
+|pixels_gray	      | Rendered grayscale image	| No	| Yes
 |extracted	        | Super Mini Map (SMM)	    | Yes	| No
 |extracted_stacked	| Stacked SMM (4 frames)    | Yes	| No
 
@@ -220,9 +220,8 @@ Based on threshold and ball positions, the reward is collected:
 d is the tracking system used to determine how close the ball is to the opponent’s goal.
 
 d= (x ball​ −1)^2 +(y ball​ −0) ^2
- 
-​
-If d is within threshold (decreases with increasing checkpoints collected), reward is added with checkpoint_reward of 0.1. 
+
+​If d is within threshold (decreases with increasing checkpoints collected), reward is added with checkpoint_reward of 0.1. 
 
 The impala CNN architecture is shown to perform relatively better than regular/natural CNN.
 Reference: "Impoola: The Power of Average Pooling for Image-Based Deep Reinforcement Learning"
