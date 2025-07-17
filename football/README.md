@@ -166,6 +166,13 @@ X Error of failed request:  GLXBadContext
 Rewards Model
 ![Rewards_football.jpg](Rewards_football.jpg)
 
+Update: Started running on container ubuntu 18.04 as noted here: dorowu/ubuntu-desktop-lxde-vnc
+https://hub.docker.com/r/dorowu/ubuntu-desktop-lxde-vnc/
+start the container with command 
+
+``sudo docker run -d   --name ubuntu-lxde-bionic   -p 6080:80   -e RESOLUTION=1920x1080   -v /dev/shm:/dev/shm   -v $HOME/docker-data/ubuntu-vnc:/home/ubuntu   dorowu/ubuntu-desktop-lxde-vnc:bionic
+``
+
 In code subprocess env is set up. It creates multiple environments such that they can be trained in parallel.
 
 Reference: ``football/gfootball/env/__init__.py``
