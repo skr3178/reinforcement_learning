@@ -166,7 +166,9 @@ X Error of failed request:  GLXBadContext
 Rewards Model
 ![Rewards_football.jpg](Rewards_football.jpg)
 
-Update: Started running on container ubuntu 18.04 as noted here: dorowu/ubuntu-desktop-lxde-vnc
+##Update: 
+Running the original code as is with python 3.6 and compilation.
+Started running on container ubuntu 18.04 as noted here: dorowu/ubuntu-desktop-lxde-vnc
 https://hub.docker.com/r/dorowu/ubuntu-desktop-lxde-vnc/
 start the container with command 
 
