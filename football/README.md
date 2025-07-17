@@ -140,18 +140,7 @@ Error when running the command inside the container:
 ``root@a27d4be42fd3:/gfootball# python3 -m gfootball.play_game --action_set=full``
 
 
-``/usr/local/lib/python3.6/dist-packages/pygame/pkgdata.py:25: UserWarning: Module gfootball_engine was already imported from /usr/local/lib/python3.6/dist-packages/gfootball_engine/__init__.py, but /gfootball is being added to sys.path
-  from pkg_resources import resource_stream, resource_exists
-pygame 2.6.1 (SDL 2.28.4, Python 3.6.9)
-Hello from the pygame community. https://www.pygame.org/contribute.html
-ALSA lib confmisc.c:767:(parse_card) cannot find card '0'
-ALSA lib conf.c:4528:(_snd_config_evaluate) function snd_func_card_driver returned error: No such file or directory
-ALSA lib confmisc.c:392:(snd_func_concat) error evaluating strings
-ALSA lib conf.c:4528:(_snd_config_evaluate) function snd_func_concat returned error: No such file or directory
-ALSA lib confmisc.c:1246:(snd_func_refer) error evaluating name
-ALSA lib conf.c:4528:(_snd_config_evaluate) function snd_func_refer returned error: No such file or directory
-ALSA lib conf.c:5007:(snd_config_expand) Evaluate error: No such file or directory
-ALSA lib pcm.c:2495:(snd_pcm_open_noupdate) Unknown PCM default
+``
 libGL error: MESA-LOADER: failed to retrieve device information
 libGL error: MESA-LOADER: failed to open nvidia-drm (search paths /usr/lib/x86_64-linux-gnu/dri:\$${ORIGIN}/dri:/usr/lib/dri)
 libGL error: failed to load driver: nvidia-drm
@@ -159,9 +148,8 @@ libGL error: No matching fbConfigs or visuals found
 libGL error: failed to load driver: swrast
 X Error of failed request:  GLXBadContext
   Major opcode of failed request:  152 (GLX)
-  Minor opcode of failed request:  6 (X_GLXIsDirect)
-  Serial number of failed request:  114
-  Current serial number in output stream:  113``
+  Minor opcode of failed request:  6 (X_GLXIsDirect)...
+``
 
 Rewards Model
 ![Rewards_football.jpg](Rewards_football.jpg)
