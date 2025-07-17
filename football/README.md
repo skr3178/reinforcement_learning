@@ -165,3 +165,72 @@ X Error of failed request:  GLXBadContext
 
 Rewards Model
 ![Rewards_football.jpg](Rewards_football.jpg)
+
+In code subprocess env is set up. It creates multiple environments such that they can be trained in parallel.
+
+Reference: ``football/gfootball/env/__init__.py``
+
+Stacking: Using the last 4 observation instead of the typical 1 layer of observations
+
+Here is what the obs matrix dimensions looks like when using representation= 'extracted_stacked'
+Your observation shape [72, 96, 16] is exactly what you should get for extracted_stacked (SMM with 4-frame stacking). If you use just extracted (no stacking), the shape would be [72, 96, 4].
+
+When running the representation as "pixel_gray": obs shape changes to [72, 96, 1]
+as "pixel": obs shape changes to [72, 96, 3]
+as "extracted": obs shape changes to [72, 96, 4]
+Table 
+
+|Representation	    | What is it?	            | SMM?  | Full Rendered Game?
+|pixels	Rendered    | RGB image	                | No	| Yes
+|pixels_gray	    | Rendered grayscale image	| No	| Yes
+|extracted	        | Super Mini Map (SMM)	    | Yes	| No
+|extracted_stacked	| Stacked SMM (4 frames)    | Yes	| No
+
+|SMM -      |   4 planes|
+____________________________________________________________________________
+|P1 plane1  |   Left team, binary values [0/255] player present or absent
+|P2 plane2  |   Right team, binary values [0/255] player present or absent
+|P3 plane3  |   Position of  ball, binary values [0/255] ball present or absent
+|P4 plane4  |   Active player, binary values [0/255] PLayer active or not 
+
+Simple115 mode is for MLP perceptron which is a simple 115 length vector for each agent.
+_________________________________________________________________________________________
+  22 (11 players pos× 2 coord (x, y)-left pos) + 22 (left dir 11x2 (x, y)) 
++ 22 (11 players pos× 2 coord (x, y)-right pos) + 22 (right dir 11x2 (x, y))
++ 3 (ball pos(x, y, z)) + 3 (ball dir (x, y, z)) 
++ 3 (ownership ([1, 0, 0] (no one), [0, 1, 0] (left), [0, 0, 1] (right)))
++ 11 (active from the left/controlled team) 
++ 7 (game mode: Normal, KickOff, GoalKick, FreeKick, Corner, ThrowIn, Penalty)
+= 115
+
+Reward design 
+Reference: ``/football/gfootball/env/football_env_core.py``
+
+1. Sparse (liekly takes longer to learn): +1 for scoring, -1 for conceding
+
+2. Checkpoints: rewards laid out for moving forward the ball into opponents half and making progress.
+
+Feature	              |  Value/Logic
+---------------------------------------------------------------------------
+Number of checkpoints |	 10 (default)
+Reward per checkpoint |	 0.1 (default)
+When rewarded?	      |  Ball crosses a new checkpoint, or scores
+Who is rewarded?	    |  Only if active player on left team has ball
+Bonus on goal?	      |  Yes, all remaining checkpoint rewards
+
+Based on threshold and ball positions, the reward is collected:
+
+d is the tracking system used to determine how close the ball is to the opponent’s goal.
+
+d= (x ball​ −1)^2 +(y ball​ −0) ^2
+ 
+​
+If d is within threshold (decreases with increasing checkpoints collected), reward is added with checkpoint_reward of 0.1. 
+
+The impala CNN architecture is shown to perform relatively better than regular/natural CNN.
+Reference: "Impoola: The Power of Average Pooling for Image-Based Deep Reinforcement Learning"
+
+
+![impala_vs_CNN](impala_vs_CNN.png)
+![x1.png](x1.png)
+
