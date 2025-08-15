@@ -1,10 +1,14 @@
 # A2C algorithm 
 
 
-The actor selects actions based on the current policy.
-The critic assesses the quality of those actions by estimating the value function (e.g., Q-value or state value).
-The actor uses the critic's feedback (e.g., advantage function or TD error) to update its policy, improving action selection over time.
-The critic updates its value estimates based on observed rewards and transitions to provide better feedback.
+1. Actor Network: This network is responsible for learning the policy, which determines the agent's actions. It maps states to actions (or a probability distribution over actions in the case of stochastic policies). The actor decides "what to do" based on the current state, essentially learning how to act optimally.
+2. Critic Network: This network evaluates the action taken by the actor by estimating the value function (e.g., the expected cumulative reward). It maps states (and sometimes actions) to a scalar value, representing how good the action or state is. The critic provides feedback to the actor, guiding its learning.
+
+
+- The actor selects actions based on the current policy.
+- The critic assesses the quality of those actions by estimating the value function (e.g., Q-value or state value).
+- The actor uses the critic's feedback (e.g., advantage function or TD error) to update its policy, improving action selection over time.
+- The critic updates its value estimates based on observed rewards and transitions to provide better feedback.
 
 
 The variance of policy methods can originate from two sources: (1) high variance
