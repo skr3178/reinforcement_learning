@@ -14,6 +14,9 @@
 The variance of policy methods can originate from two sources: (1) high variance
 in the cumulative reward estimate, and (2) high variance in the gradient estimate.
 
+For most single-agent Actor-Critic implementations (e.g., vanilla Actor-Critic, PPO, or DDPG), the ratio is 1 actor to 1 critic.
+In parallelized methods like A3C or A2C, the ratio might be N actors to 1 critic, where N depends on the number of parallel environments (commonly 4–16).
+In specific algorithms like TD3, the ratio is 1 actor to 2 critics.
 
 ![img_9.png](img_9.png)
 
