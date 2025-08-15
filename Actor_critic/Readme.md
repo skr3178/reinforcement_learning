@@ -1,5 +1,12 @@
 # A2C algorithm 
 
+
+The actor selects actions based on the current policy.
+The critic assesses the quality of those actions by estimating the value function (e.g., Q-value or state value).
+The actor uses the critic's feedback (e.g., advantage function or TD error) to update its policy, improving action selection over time.
+The critic updates its value estimates based on observed rewards and transitions to provide better feedback.
+
+
 The variance of policy methods can originate from two sources: (1) high variance
 in the cumulative reward estimate, and (2) high variance in the gradient estimate.
 
