@@ -29,7 +29,7 @@ num_action = env.action_space.n
 torch.manual_seed(seed)
 np.random.seed(seed)
 
-Transition = namedtuple('Transition', ['state', 'action', 'reward', 'next_state'])
+Transition = namedtuple('Transition', ['state', 'action', 'reward', 'next_state', 'done'])
 
 class Net(nn.Module):
     def __init__(self):
@@ -51,6 +51,9 @@ class DQN():
     batch_size = 256
     gamma = 0.995
     update_count = 0
+    epsilon = 1.0  # Start with full exploration
+    epsilon_min = 0.01
+    epsilon_decay = 0.995
 
     def __init__(self):
         super(DQN, self).__init__()
@@ -66,7 +69,7 @@ class DQN():
         value = self.act_net(state)
         action_max_value, index = torch.max(value, 1)
         action = index.item()
-        if np.random.rand(1) >= 0.9: # epslion greedy
+        if np.random.rand(1) < self.epsilon: # epsilon greedy with decay
             action = np.random.choice(range(num_action), 1).item()
         return action
 
@@ -85,14 +88,18 @@ class DQN():
             indices = np.random.choice(memory_size, self.batch_size, replace=False)
             batch = [self.memory[i] for i in indices]
             
-            state = torch.tensor([t.state for t in batch]).float().to(device)
-            action = torch.LongTensor([t.action for t in batch]).view(-1,1).long().to(device)
-            reward = torch.tensor([t.reward for t in batch]).float().to(device)
-            next_state = torch.tensor([t.next_state for t in batch]).float().to(device)
+            # Convert to tensors efficiently
+            state = torch.tensor(np.array([t.state for t in batch]), dtype=torch.float).to(device)
+            action = torch.LongTensor([t.action for t in batch]).view(-1,1).to(device)
+            reward = torch.tensor([t.reward for t in batch], dtype=torch.float).to(device)
+            next_state = torch.tensor(np.array([t.next_state for t in batch]), dtype=torch.float).to(device)
+            done = torch.tensor([t.done for t in batch], dtype=torch.float).to(device)
 
-            reward = (reward - reward.mean()) / (reward.std() + 1e-7)
+            # Bellman equation: Q(s,a) = r + γ * max Q(s',a') for non-terminal states
+            # For terminal states (done=True), Q(s,a) = r only (no future value!)
             with torch.no_grad():
-                target_v = reward + self.gamma * self.target_net(next_state).max(1)[0]
+                next_q_values = self.target_net(next_state).max(1)[0]
+                target_v = reward + self.gamma * next_q_values * (1 - done)
 
             # Single gradient update
             current_v = self.act_net(state).gather(1, action).squeeze()
@@ -113,6 +120,7 @@ def main():
 
     agent = DQN()
     episode_steps = []
+    solved_threshold = 195.0  # CartPole-v0 is considered solved at 195 average reward
     
     pbar = tqdm(range(num_episodes), desc="Training DQN")
     for i_ep in pbar:
@@ -123,44 +131,40 @@ def main():
             next_state, reward, terminated, truncated, info = env.step(action)
             done = terminated or truncated
             if render: env.render()
-            transition = Transition(state, action, reward, next_state)
+            transition = Transition(state, action, reward, next_state, done)
             agent.store_transition(transition)
+            
+            # Update network every step (not just at episode end)
+            loss = agent.update()
+            
             state = next_state
             if done or t >=9999:
                 agent.writer.add_scalar('live/finish_step', t+1, global_step=i_ep)
                 episode_steps.append(t+1)
-                loss = agent.update()
+                
+                # Decay epsilon after each episode
+                agent.epsilon = max(agent.epsilon_min, agent.epsilon * agent.epsilon_decay)
                 
                 # Update progress bar
                 avg_steps = np.mean(episode_steps[-100:]) if len(episode_steps) > 0 else 0
-                pbar.set_postfix({'steps': t+1, 'avg_100': f'{avg_steps:.1f}', 'memory': agent.memory_count})
+                pbar.set_postfix({'steps': t+1, 'avg_100': f'{avg_steps:.1f}', 'eps': f'{agent.epsilon:.3f}'})
+                
+                # Check if solved (need at least 100 episodes)
+                if len(episode_steps) >= 100 and avg_steps >= solved_threshold:
+                    print(f"\n🎉 Environment SOLVED in {i_ep+1} episodes!")
+                    print(f"Average score over last 100 episodes: {avg_steps:.2f} >= {solved_threshold}")
+                    pbar.close()
+                    return
+                
                 break
     
-    # Plot results
-    plt.figure(figsize=(12, 5))
-    
-    # Plot episode steps
-    plt.subplot(1, 2, 1)
-    plt.plot(episode_steps)
-    plt.xlabel('Episode')
-    plt.ylabel('Steps')
-    plt.title('Steps per Episode')
-    plt.grid(True)
-    
-    # Plot moving average
-    plt.subplot(1, 2, 2)
-    window_size = 50
-    moving_avg = np.convolve(episode_steps, np.ones(window_size)/window_size, mode='valid')
-    plt.plot(moving_avg)
-    plt.xlabel('Episode')
-    plt.ylabel('Average Steps')
-    plt.title(f'Moving Average (window={window_size})')
-    plt.grid(True)
-    
-    plt.tight_layout()
-    plt.savefig('DQN_training_results.png', dpi=150)
-    plt.show()
-    print(f"Training complete! Plot saved as 'DQN_training_results.png'")
+    # Training completed all episodes
+    final_avg = np.mean(episode_steps[-100:]) if len(episode_steps) >= 100 else np.mean(episode_steps)
+    print(f"\nTraining complete! Final average (last 100 episodes): {final_avg:.2f}")
+    if final_avg >= solved_threshold:
+        print(f"✓ Environment SOLVED!")
+    else:
+        print(f"✗ Not solved. Gap: {solved_threshold - final_avg:.2f} steps")
 
 if __name__ == '__main__':
     main()
