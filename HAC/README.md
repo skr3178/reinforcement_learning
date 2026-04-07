@@ -27,6 +27,16 @@ To view
 
 *"python3 initialize_HAC.py --test --show"*.  
 
+I added HAC: Hierarchial Actor Critic algo earlier for the ant target implementation. 
+Actual HAC implementation: 
+```
+Q̂n(st, at) = Σ(k=0 to n-1) γᵏ · r(t+k)  +  γⁿ · Vφ(s(t+n))
+```
+which is neither pure monte carlo nor pure 1 step Temporal difference: 
+The first term sums n actual rewards from the rollout
+The second term bootstraps from the value function at step t+n
+
+
 There are sample *"design_agent_and_env.py"* for each environment which contains initial state and other parameters. This needs to be created for each one seperately. 
 
 The number of agents/steps that are to be trained can be modified by changing the FLAGS.layers = 3 , within design_agent_and_env.py file. 
